@@ -131,17 +131,6 @@ li {
     margin-left: 40px;
 }
 
-.amazon-link {
-    font-size: 0.8rem;
-    color: #888;
-    text-decoration: none;
-}
-
-.amazon-link:hover {
-    color: #ff9900;
-    text-decoration: underline;
-}
-
 .year-section h3 {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
