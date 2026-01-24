@@ -127,6 +127,10 @@ li {
     margin-top: 40px;
 }
 
+.year-section ol {
+    margin-left: 40px;
+}
+
 .year-section h3 {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
