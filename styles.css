@@ -131,6 +131,15 @@ li {
     margin-left: 40px;
 }
 
+.year-section li a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.year-section li a:hover {
+    text-decoration: underline;
+}
+
 .year-section h3 {
     border-bottom: 1px solid #eee;
     padding-bottom: 10px;
