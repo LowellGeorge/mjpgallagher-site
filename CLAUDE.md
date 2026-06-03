@@ -5,7 +5,7 @@ Personal website hosted on GitHub Pages via the `LowellGeorge/mjpgallagher-site`
 ## Structure
 
 - `index.html` — About page
-- `reading.html` — Reading list by year (2026 back to 2019). Each book is an `<li>` with an Amazon UK search link, italicised title, and author.
+- `reading.html` — Reading list by year (2026 back to 2019). Each book is an `<li>`: an Amazon UK search link wrapping the **plain-text title**, then `, ` and the **author in `<em>` italics**.
 - `bookshelf.html` — Bookshelf page
 - `lists-sources.html` — Lists / Sources page
 - `ai-101.html` — AI 101 page
@@ -17,7 +17,8 @@ Personal website hosted on GitHub Pages via the `LowellGeorge/mjpgallagher-site`
 - All pages share the same `<header>` with nav links; the current page gets `class="active"`.
 - Book links on reading.html use Amazon UK search URLs: `https://www.amazon.co.uk/s?k=Title+Author`
 - Books are listed in numbered `<ol>` lists inside `<div class="year-section">` blocks.
-- Rereads are marked with `(rr)` after the entry.
+- Entry format is `Title, <em>Author</em>` — title in normal text, author italicised, comma separator (no dash). On reading.html the title is wrapped in the Amazon `<a>`; on bookshelf.html there's no link.
+- Rereads are marked with `(rr)` (in brackets) after the entry, outside the author italics.
 
 ## Deployment
 
