@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Climb of Information</title>
+<meta name="description" content="One continuous ascent from the Big Bang to AI — five eras, twenty-three rungs. An interactive deck on how information has been stored, copied, processed and represented at ever-higher levels, each step paid for in energy and echoed in computing.">
+<meta name="author" content="Michael Gallagher">
+<link rel="canonical" href="https://mjpgallagher.com/climb-of-information.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Climb of Information">
+<meta property="og:description" content="From the Big Bang to AI — and, perhaps, beyond. One unbroken climb: five eras, twenty-three rungs, each paid in energy and echoed in our machines.">
+<meta property="og:url" content="https://mjpgallagher.com/climb-of-information.html">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Climb of Information">
+<meta name="twitter:description" content="From the Big Bang to AI — and, perhaps, beyond. One unbroken climb: five eras, twenty-three rungs, each paid in energy and echoed in our machines.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230a0a14'/%3E%3Cg fill='%2338bdf8'%3E%3Crect x='14' y='70' width='12' height='18'/%3E%3Crect x='31' y='60' width='12' height='28'/%3E%3Crect x='48' y='48' width='12' height='40'/%3E%3Crect x='65' y='34' width='12' height='54'/%3E%3Crect x='82' y='18' width='12' height='70'/%3E%3C/g%3E%3C/svg%3E">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#0a0a14;
+    --bg2:#11101f;
+    --ink:#eef0f7;
+    --muted:#9aa0b8;
+    --faint:#6b7090;
+    --physics:#8b7cf6;
+    --life:#34d399;
+    --minds:#fbbf24;
+    --symbols:#fb7185;
+    --machines:#38bdf8;
+    --serif:'Fraunces', Georgia, 'Times New Roman', serif;
+    --sans:'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    --mono:'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{height:100%;margin:0;}
+  body{
+    background:
+      radial-gradient(1200px 700px at 75% -10%, rgba(124,108,246,0.10), transparent 60%),
+      radial-gradient(1000px 800px at 10% 110%, rgba(56,189,248,0.08), transparent 60%),
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--sans);
+    overflow:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* top progress line */
+  #topbar{position:fixed;top:0;left:0;height:3px;background:var(--era,#8b7cf6);width:0;z-index:50;transition:width .35s ease, background .35s ease;box-shadow:0 0 10px var(--era,#8b7cf6);}
+
+  /* deck */
+  #deck{position:fixed;inset:0 0 132px 0;}
+  .slide{
+    position:absolute;inset:0;
+    display:flex;align-items:center;justify-content:center;
+    padding:clamp(20px,5vw,80px);
+    opacity:0;visibility:hidden;
+    transition:opacity .5s ease;
+    --era:#8b7cf6;
+  }
+  .slide.active{opacity:1;visibility:visible;}
+  .wrap{width:min(1080px,100%);}
+
+  /* header chips */
+  .chips{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap;}
+  .era-chip{
+    font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--era);border:1px solid color-mix(in srgb, var(--era) 45%, transparent);
+    padding:5px 11px;border-radius:999px;background:color-mix(in srgb, var(--era) 12%, transparent);
+  }
+  .rung-chip{font-family:var(--mono);font-size:12px;letter-spacing:.12em;color:var(--faint);text-transform:uppercase;}
+  .power-chip{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#ffd479;border:1px solid rgba(255,212,121,.4);background:rgba(255,212,121,.09);padding:4px 10px;border-radius:999px;}
+  .felt-chip{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:#cfd3e6;border:1px dashed rgba(207,211,230,.34);background:rgba(207,211,230,.055);padding:4px 10px;border-radius:999px;}
+  .felt-chip.machine{color:#8bddff;border-color:rgba(56,189,248,.42);background:rgba(56,189,248,.07);}
+
+  h1.title{font-family:var(--serif);font-weight:600;font-size:clamp(40px,7vw,84px);line-height:1.02;margin:0 0 18px;letter-spacing:-.01em;}
+  .subtitle{font-size:clamp(18px,2.4vw,26px);color:var(--muted);font-weight:400;}
+  .tagline{font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-top:34px;}
+
+  h2.rung-title{font-family:var(--serif);font-weight:600;font-size:clamp(30px,4.6vw,56px);line-height:1.04;margin:0 0 8px;letter-spacing:-.01em;}
+  .rung-tag{font-size:clamp(16px,2vw,21px);color:var(--era);font-weight:500;margin-bottom:26px;font-style:italic;font-family:var(--serif);}
+
+  /* content layout: text + motif */
+  .body{display:grid;grid-template-columns:1fr 200px;gap:36px;align-items:start;}
+  @media (max-width:760px){.body{grid-template-columns:1fr;} .motif{display:none;}}
+
+  .facets{display:flex;flex-direction:column;gap:16px;}
+  .facet{
+    display:grid;grid-template-columns:108px 1fr;gap:18px;align-items:baseline;
+    opacity:0;transform:translateY(10px);transition:opacity .45s ease, transform .45s ease;
+  }
+  .facet.on{opacity:1;transform:none;}
+  .facet .lab{font-family:var(--mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);padding-top:3px;}
+  .facet .txt{font-size:clamp(15px,1.7vw,18.5px);line-height:1.5;color:var(--ink);}
+  .facet.echo .lab{color:var(--era);}
+  .facet.echo .txt{font-family:var(--mono);font-size:clamp(13.5px,1.5vw,16px);color:#cfd3e6;background:color-mix(in srgb, var(--era) 9%, transparent);border-left:2px solid var(--era);padding:8px 12px;border-radius:0 8px 8px 0;line-height:1.45;}
+  .facet.note .lab{color:#d9b3ff;}
+  .facet.note .txt{font-size:clamp(13.5px,1.5vw,16px);color:var(--muted);font-style:italic;}
+  .facet.beat{grid-template-columns:1fr;}
+  .facet.beat .lab{display:none;}
+  .facet.beat .txt{font-size:clamp(16px,2vw,21px);line-height:1.55;}
+  .facet .txt.hedge{color:var(--muted);font-style:italic;}
+
+  .motif{display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;color:var(--era);}
+  .motif svg{width:170px;height:170px;filter:drop-shadow(0 0 16px color-mix(in srgb, var(--era) 35%, transparent));}
+  .motif.motif-lg svg{width:188px;height:188px;}
+  .motif-cap{font-family:var(--mono);font-size:11px;line-height:1.35;color:var(--muted);text-align:center;max-width:190px;}
+
+  /* era divider */
+  .era-num{font-family:var(--mono);font-size:14px;letter-spacing:.3em;text-transform:uppercase;color:var(--era);margin-bottom:14px;}
+  h2.era-name{font-family:var(--serif);font-weight:700;font-size:clamp(46px,8vw,104px);margin:0;line-height:.98;color:var(--ink);letter-spacing:-.02em;}
+  .era-name .accent{color:var(--era);}
+  .era-blurb{font-size:clamp(17px,2.2vw,23px);color:var(--muted);max-width:760px;margin-top:22px;line-height:1.45;}
+
+  /* thesis legend */
+  .legend{display:grid;grid-template-columns:repeat(2,1fr);gap:14px 30px;margin-top:34px;max-width:820px;}
+  @media (max-width:620px){.legend{grid-template-columns:1fr;}}
+  .legend .item{display:grid;grid-template-columns:120px 1fr;gap:14px;align-items:baseline;}
+  .legend .k{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;}
+  .legend .k.s{color:var(--physics);} .legend .k.a{color:var(--life);} .legend .k.e{color:var(--minds);} .legend .k.c{color:var(--machines);}
+  .legend .v{color:var(--muted);font-size:15.5px;line-height:1.4;}
+
+  .lead{font-size:clamp(17px,2.1vw,22px);line-height:1.55;color:var(--ink);max-width:840px;}
+  .lead b{color:#fff;font-weight:600;}
+  .sources{font-family:var(--mono);font-size:12.5px;color:var(--faint);line-height:1.7;margin-top:30px;max-width:900px;}
+  .sources b{color:#dfe3f2;font-weight:600;}
+  .sources a{color:var(--machines);text-decoration:underline;text-underline-offset:2px;}
+  .statstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;width:100%;}
+  .statstrip .stat{border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;background:rgba(255,255,255,.03);}
+  .statstrip .num{font-family:var(--serif);font-weight:600;font-size:clamp(20px,2.6vw,30px);color:var(--machines);line-height:1;}
+  .statstrip .cap{font-size:12.5px;color:var(--muted);margin-top:8px;line-height:1.35;}
+  .bigline{font-family:var(--serif);font-weight:600;font-size:clamp(22px,3.4vw,40px);line-height:1.15;color:#fff;letter-spacing:-.01em;}
+  .clocks{display:grid;grid-template-columns:1.15fr 1fr 1fr;width:100%;border:1px solid rgba(255,255,255,.12);border-radius:12px;overflow:hidden;}
+  .clocks > div{padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.07);font-size:clamp(12.5px,1.45vw,16px);line-height:1.3;}
+  .clocks > div:nth-last-child(-n+3){border-bottom:none;}
+  .clocks .h{font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);background:rgba(255,255,255,.04);}
+  .clocks .t{color:#fff;font-weight:500;}
+  .clocks .deep{color:#7fe6c0;}
+  .clocks .comp{color:#7fd0f5;}
+  .tdflow{display:grid;grid-template-columns:1fr 46px 1fr 46px 1fr;gap:10px;align-items:stretch;margin:4px 0 2px;}
+  .tdnode{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;background:rgba(255,255,255,.035);min-height:112px;}
+  .tdnode .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--minds);margin-bottom:10px;}
+  .tdnode .v{font-size:clamp(13.5px,1.5vw,16px);line-height:1.42;color:var(--ink);}
+  .tdarrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--minds);font-family:var(--mono);}
+  .tdformula{font-family:var(--mono);font-size:clamp(13px,1.45vw,16px);color:#ffe29a;background:rgba(251,191,36,.08);border-left:2px solid var(--minds);padding:9px 12px;border-radius:0 8px 8px 0;margin-top:12px;}
+  .tracegrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 2px;}
+  .tracebox{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;background:rgba(255,255,255,.035);}
+  .tracebox .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--minds);margin-bottom:10px;}
+  .tracebox .v{font-size:clamp(13.5px,1.5vw,16px);line-height:1.45;color:var(--ink);}
+  .tracebox.machine .k{color:var(--machines);}
+  @media (max-width:760px){.tdflow{grid-template-columns:1fr}.tdarrow{display:none}.tdnode{min-height:0}}
+  @media (max-width:760px){.tracegrid{grid-template-columns:1fr}}
+  @media (max-width:760px){.statstrip{grid-template-columns:repeat(2,1fr);}}
+
+  /* footer: legend + staircase */
+  #footer{position:fixed;left:0;right:0;bottom:0;height:132px;padding:10px 22px 12px;z-index:40;
+    background:linear-gradient(to top, rgba(8,8,16,0.92), rgba(8,8,16,0.0));}
+  #eralegend{display:flex;gap:22px;justify-content:center;align-items:center;margin-bottom:4px;flex-wrap:wrap;}
+  #eralegend .e{display:flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.06em;color:var(--faint);transition:color .3s;}
+  #eralegend .e .dot{width:9px;height:9px;border-radius:50%;opacity:.5;transition:opacity .3s, box-shadow .3s;}
+  #eralegend .e.cur{color:var(--ink);}
+  #eralegend .e.cur .dot{opacity:1;box-shadow:0 0 10px currentColor;}
+  #rail{width:min(1100px,100%);margin:0 auto;display:block;}
+  #rail rect{cursor:pointer;transition:opacity .3s;}
+
+  /* nav */
+  .navbtn{position:fixed;bottom:142px;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.16);
+    background:rgba(255,255,255,.05);color:var(--ink);font-size:18px;cursor:pointer;z-index:45;
+    display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);transition:background .2s,border-color .2s;}
+  .navbtn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3);}
+  #prev{right:70px;} #next{right:20px;}
+  #counter{position:fixed;bottom:152px;left:22px;font-family:var(--mono);font-size:12px;color:var(--faint);z-index:45;}
+  .hint{position:fixed;bottom:152px;left:50%;transform:translateX(-50%);font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--faint);z-index:45;text-transform:uppercase;opacity:.8;}
+  @media (max-width:760px){.hint{display:none;}}
+</style>
+</head>
+<body>
+  <div id="topbar"></div>
+  <div id="deck"></div>
+
+  <div id="counter"></div>
+  <div class="hint">← / → or space to move · click a step to jump</div>
+  <button class="navbtn" id="prev" aria-label="Previous">‹</button>
+  <button class="navbtn" id="next" aria-label="Next">›</button>
+
+  <div id="footer">
+    <div id="eralegend"></div>
+    <svg id="rail" viewBox="0 0 1000 92" preserveAspectRatio="xMidYMax meet" aria-hidden="true"></svg>
+  </div>
+
+<script>
+/* ---------- era system ---------- */
+const ERAS = {
+  physics : {name:'Physics',  num:'Era I',   color:'#8b7cf6', sub:'information as raw state'},
+  life    : {name:'Life',     num:'Era II',  color:'#34d399', sub:'information that copies itself'},
+  minds   : {name:'Minds',    num:'Era III', color:'#fbbf24', sub:'information that models'},
+  symbols : {name:'Symbols',  num:'Era IV',  color:'#fb7185', sub:'information that escapes the body'},
+  machines: {name:'Machines', num:'Era V',   color:'#38bdf8', sub:'information that computes itself'},
+};
+const ERA_ORDER = ['physics','life','minds','symbols','machines'];
+function eraOfRung(n){ if(n<=4)return'physics'; if(n<=11)return'life'; if(n<=16)return'minds'; if(n<=19)return'symbols'; return'machines'; }
+
+/* ---------- motifs (simple line-art, currentColor) ---------- */
+const M = {
+  nucleotide:`<g fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="20" cy="24" r="8" fill="currentColor" stroke="none"/><text x="20" y="27.5" text-anchor="middle" font-size="9" font-family="monospace" fill="#0a0a14" stroke="none">P</text><line x1="26.5" y1="29" x2="35" y2="39"/><path d="M44 33 L55 41 L51 54 L37 54 L33 41 Z" fill="currentColor" fill-opacity="0.18"/><line x1="55" y1="44" x2="64" y2="44"/><path d="M66 36 L84 36 L92 44 L84 52 L66 52 L58 44 Z" fill="currentColor" fill-opacity="0.12"/><line x1="44" y1="54" x2="44" y2="61" opacity="0.5"/><line x1="60" y1="61" x2="60" y2="70"/><polyline points="55 66 60 71 65 66"/><path d="M50 76 C33 84 33 94 50 102 C67 110 67 117 52 119"/><path d="M70 76 C87 84 87 94 70 102 C53 110 53 117 68 119"/><line x1="52" y1="80" x2="68" y2="80"/><line x1="45" y1="89" x2="75" y2="89"/><line x1="52" y1="99" x2="68" y2="99"/><line x1="46" y1="109" x2="74" y2="109"/></g>`,
+  bigbang:`<circle cx="60" cy="60" r="8" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="60" y1="60" x2="60" y2="18"/><line x1="60" y1="60" x2="102" y2="60"/><line x1="60" y1="60" x2="60" y2="102"/><line x1="60" y1="60" x2="18" y2="60"/><line x1="60" y1="60" x2="90" y2="30"/><line x1="60" y1="60" x2="90" y2="90"/><line x1="60" y1="60" x2="30" y2="90"/><line x1="60" y1="60" x2="30" y2="30"/></g><circle cx="60" cy="60" r="34" fill="none" stroke="currentColor" stroke-width="2" opacity=".4"/><circle cx="60" cy="60" r="50" fill="none" stroke="currentColor" stroke-width="2" opacity=".18"/>`,
+  atom:`<circle cx="60" cy="60" r="6" fill="currentColor"/><g fill="none" stroke="currentColor" stroke-width="2.5"><ellipse cx="60" cy="60" rx="46" ry="17"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(60 60 60)"/><ellipse cx="60" cy="60" rx="46" ry="17" transform="rotate(120 60 60)"/></g>`,
+  star:`<circle cx="60" cy="60" r="15" fill="currentColor"/><g stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="60" y1="14" x2="60" y2="32"/><line x1="60" y1="88" x2="60" y2="106"/><line x1="14" y1="60" x2="32" y2="60"/><line x1="88" y1="60" x2="106" y2="60"/><line x1="28" y1="28" x2="40" y2="40"/><line x1="80" y1="80" x2="92" y2="92"/><line x1="92" y1="28" x2="80" y2="40"/><line x1="40" y1="80" x2="28" y2="92"/></g>`,
+  planet:`<circle cx="60" cy="58" r="25" fill="currentColor"/><ellipse cx="60" cy="58" rx="50" ry="15" fill="none" stroke="currentColor" stroke-width="3" transform="rotate(-20 60 58)"/>`,
+  replicate:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="18" y="44" width="24" height="34" rx="4"/><line x1="48" y1="60" x2="72" y2="60"/><polyline points="64 52 72 60 64 68"/><rect x="80" y="30" width="22" height="28" rx="4"/><rect x="80" y="64" width="22" height="28" rx="4"/></g>`,
+  dna:`<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M30 16 C14 32 46 40 30 56 C14 72 46 80 30 96"/><path d="M48 16 C64 32 32 40 48 56 C64 72 32 80 48 96"/><line x1="32" y1="24" x2="46" y2="24"/><line x1="44" y1="48" x2="34" y2="48"/><line x1="32" y1="72" x2="46" y2="72"/><line x1="64" y1="56" x2="78" y2="56"/><polyline points="72 49 80 56 72 63"/><polyline points="86 40 94 52 102 44 98 66 106 74"/></g>`,
+  cell:`<g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><circle cx="60" cy="60" r="42" stroke-width="3" fill="currentColor" fill-opacity=".06"/><circle cx="60" cy="60" r="34" stroke-width="1.8" opacity=".45"/><path d="M40 65 C48 50 58 78 68 62 C75 50 84 60 77 72 C70 84 51 78 44 70" stroke-width="2.7"/><path d="M91 42 C98 49 99 61 93 70" stroke-width="3.4"/><line x1="106" y1="47" x2="91" y2="56" stroke-width="2.4"/><polyline points="96 47 91 56 101 56" stroke-width="2.4"/></g><g fill="currentColor"><circle cx="24" cy="38" r="2.6" opacity=".35"/><circle cx="28" cy="78" r="2.6" opacity=".35"/><circle cx="35" cy="27" r="2.2" opacity=".35"/><circle cx="52" cy="47" r="2.7"/><circle cx="72" cy="44" r="2.5"/><circle cx="48" cy="82" r="2.4"/><circle cx="82" cy="76" r="2.4"/></g>`,
+  valence:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="58" cy="64" r="11" fill="currentColor"/><line x1="70" y1="56" x2="92" y2="40"/><polyline points="84 39 93 39 92 49"/><line x1="92" y1="28" x2="106" y2="28"/><line x1="99" y1="21" x2="99" y2="35"/><line x1="44" y1="74" x2="24" y2="88"/><line x1="20" y1="92" x2="34" y2="92"/></g>`,
+  photo:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><circle cx="42" cy="42" r="13" fill="currentColor"/><line x1="42" y1="16" x2="42" y2="24"/><line x1="42" y1="60" x2="42" y2="68"/><line x1="16" y1="42" x2="24" y2="42"/><line x1="60" y1="42" x2="68" y2="42"/><line x1="24" y1="24" x2="30" y2="30"/><line x1="54" y1="54" x2="60" y2="60"/><path d="M62 98 C62 72 84 62 106 62 C106 88 84 98 62 98 Z"/><path d="M62 98 C72 86 86 76 102 68"/></g>`,
+  symbiosis:`<g fill="none" stroke="currentColor" stroke-width="3"><circle cx="46" cy="60" r="26"/><circle cx="74" cy="60" r="26"/></g><circle cx="60" cy="60" r="4" fill="currentColor"/>`,
+  cluster:`<g fill="currentColor"><circle cx="60" cy="38" r="9"/><circle cx="41" cy="53" r="9"/><circle cx="79" cy="53" r="9"/><circle cx="60" cy="60" r="9"/><circle cx="41" cy="78" r="9"/><circle cx="79" cy="78" r="9"/><circle cx="60" cy="82" r="9"/></g>`,
+  neuron:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="42" cy="60" r="13" fill="currentColor"/><line x1="30" y1="51" x2="16" y2="42"/><line x1="30" y1="69" x2="16" y2="78"/><line x1="34" y1="48" x2="24" y2="36"/><line x1="34" y1="72" x2="24" y2="84"/><line x1="55" y1="60" x2="92" y2="60"/><line x1="92" y1="60" x2="104" y2="50"/><line x1="92" y1="60" x2="104" y2="70"/><line x1="92" y1="60" x2="106" y2="60"/></g>`,
+  steering:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><circle cx="60" cy="60" r="38"/></g><polygon points="60 26 71 64 60 57 49 64" fill="currentColor"/><polygon points="60 94 49 56 60 63 71 56" fill="currentColor" opacity=".35"/>`,
+  rpe:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="20" y1="94" x2="104" y2="94"/><line x1="24" y1="20" x2="24" y2="94"/><line x1="24" y1="78" x2="104" y2="78" stroke-width="2" opacity="0.35"/><path d="M24 78 L50 78 L60 28 L70 78 L104 78" stroke-dasharray="185" stroke-dashoffset="185"><animate attributeName="stroke-dashoffset" values="185;0;0;185" keyTimes="0;0.45;0.8;1" dur="3s" repeatCount="indefinite"/></path><circle cx="60" cy="28" r="0" fill="currentColor" stroke="none"><animate attributeName="r" values="0;0;5;0" keyTimes="0;0.42;0.56;0.78" dur="3s" repeatCount="indefinite"/></circle></g>`,
+  world:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"><path d="M42 102 C22 102 18 72 30 56 C36 28 86 26 94 52 C104 62 98 84 84 86 L84 102"/><circle cx="58" cy="60" r="16"/><path d="M42 60 H74 M58 44 C66 52 66 68 58 76 C50 68 50 52 58 44" stroke-width="2"/></g>`,
+  mirror:`<g fill="none" stroke="currentColor" stroke-width="3"><circle cx="40" cy="54" r="16"/><path d="M22 96 C22 78 58 78 58 96"/><circle cx="80" cy="54" r="16"/><path d="M62 96 C62 78 98 78 98 96"/><line x1="60" y1="22" x2="60" y2="104" stroke-dasharray="2 7"/></g>`,
+  speech:`<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><path d="M28 34 H92 C100 34 100 70 92 70 H58 L42 86 L44 70 H28 C20 70 20 34 28 34 Z"/></g><g fill="currentColor"><circle cx="44" cy="52" r="4"/><circle cx="60" cy="52" r="4"/><circle cx="76" cy="52" r="4"/></g><g stroke="currentColor" stroke-width="2"><line x1="48" y1="52" x2="56" y2="52"/><line x1="64" y1="52" x2="72" y2="52"/></g>`,
+  tablet:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="34" y="20" width="52" height="80" rx="6"/><line x1="46" y1="40" x2="74" y2="40"/><line x1="46" y1="54" x2="74" y2="54"/><line x1="46" y1="68" x2="66" y2="68"/><line x1="46" y1="82" x2="60" y2="82"/></g>`,
+  axes:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="40" y1="82" x2="40" y2="26"/><polyline points="33 34 40 26 47 34"/><line x1="40" y1="82" x2="96" y2="82"/><polyline points="88 75 96 82 88 89"/><line x1="40" y1="82" x2="18" y2="100"/><polyline points="26 98 18 100 20 92"/><line x1="40" y1="82" x2="80" y2="40" stroke-dasharray="3 5"/><polyline points="72 42 80 40 78 48"/></g>`,
+  turing:`<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round"><rect x="14" y="54" width="92" height="24"/><line x1="37" y1="54" x2="37" y2="78"/><line x1="60" y1="54" x2="60" y2="78"/><line x1="83" y1="54" x2="83" y2="78"/></g><circle cx="25" cy="66" r="2.6" fill="currentColor"/><circle cx="71" cy="66" r="2.6" fill="currentColor"/><polygon points="60 42 52 30 68 30" fill="currentColor"/>`,
+  embed:`<g fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><line x1="22" y1="98" x2="102" y2="98"/><line x1="22" y1="22" x2="22" y2="98"/><line x1="22" y1="98" x2="78" y2="40"/><polyline points="70 42 78 40 76 48"/><line x1="22" y1="98" x2="52" y2="58"/><polyline points="44 60 52 58 50 66"/></g><g fill="currentColor"><circle cx="78" cy="40" r="3.6"/><circle cx="52" cy="58" r="3.6"/><circle cx="88" cy="56" r="3"/><circle cx="66" cy="48" r="3"/><circle cx="44" cy="74" r="3"/></g>`,
+  attention:`<g stroke="currentColor" stroke-width="2" opacity=".22"><line x1="32" y1="34" x2="88" y2="34"/><line x1="32" y1="34" x2="88" y2="60"/><line x1="32" y1="34" x2="88" y2="86"/><line x1="32" y1="60" x2="88" y2="34"/><line x1="32" y1="60" x2="88" y2="60"/><line x1="32" y1="60" x2="88" y2="86"/><line x1="32" y1="86" x2="88" y2="34"/><line x1="32" y1="86" x2="88" y2="60"/><line x1="32" y1="86" x2="88" y2="86"/></g><g stroke="currentColor" fill="none"><line x1="32" y1="60" x2="88" y2="34" stroke-width="2"><animate attributeName="stroke-width" values="2;5;2" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.4;1;0.4" dur="1.8s" repeatCount="indefinite"/></line><line x1="32" y1="60" x2="88" y2="86" stroke-width="2"><animate attributeName="stroke-width" values="2;4.5;2" dur="1.8s" begin="0.6s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="0.6s" repeatCount="indefinite"/></line><line x1="32" y1="60" x2="88" y2="60" stroke-width="2"><animate attributeName="stroke-width" values="2;4.5;2" dur="1.8s" begin="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values="0.3;1;0.3" dur="1.8s" begin="1.2s" repeatCount="indefinite"/></line></g><g fill="currentColor"><circle cx="32" cy="34" r="6"/><circle cx="32" cy="60" r="6"/><circle cx="32" cy="86" r="6"/><circle cx="88" cy="34" r="6"/><circle cx="88" cy="60" r="6"/><circle cx="88" cy="86" r="6"/></g>`,
+  spiral:`<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M60 98 C38 98 34 78 52 73 C74 67 80 50 60 46 C38 42 40 26 60 26 C86 26 88 12 70 8"/><polyline points="78 13 70 7 63 17"/></g>`,
+  staircase:`<g fill="currentColor"><rect x="12" y="84" width="15" height="22"/><rect x="33" y="72" width="15" height="34"/><rect x="54" y="58" width="15" height="48"/><rect x="75" y="42" width="15" height="64"/><rect x="96" y="24" width="15" height="82"/></g><g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="103" y1="18" x2="103" y2="6"/><polyline points="97 12 103 6 109 12"/></g>`,
+};
+
+/* ---------- content ---------- */
+const SLIDES = [
+  {type:'title'},
+  {type:'thesis'},
+
+  {type:'era', era:'physics'},
+  {type:'rung', n:1, motif:'bigbang', title:'Bang → bits', tag:'Reality keeps a record',
+   step:`A hot, dense newborn universe expands and cools; particles freeze out of pure energy.`,
+   abstraction:`A bit is not a tiny object. It is a <b>distinction</b>: this state rather than that one. Any physical system with two distinguishable states can store one bit; every lawful change of state updates information. That is Seth Lloyd's move: the universe computes because physics is the rule-governed transformation of physical states.`,
+   energy:`The deep secret of the start: it was gravitationally <b>smooth</b> — extraordinarily low entropy. That low-entropy spring still powers everything that rises. (Thermally it looks "maximum entropy"; gravitationally it was the opposite.)`,
+  echo:`Computers make the same primitive explicit: on/off, 0/1, one state rather than another. Shannon's information, Boltzmann's entropy and von Neumann's quantum entropy all count possible states — so the bit is the atom of computing because it is already the atom of physics.`},
+  {type:'rung', n:2, motif:'atom', title:'Cooling → matter', tag:'The first lasting memory',
+   step:`After ~380,000 years, electrons join nuclei and the cosmic fog clears. Light that had been trapped in the plasma streams free across the universe. We still see that released light today, stretched by expansion into the cosmic microwave background.`,
+   abstraction:`Stable atoms are information that <b>persists</b> — the universe's first durable memory.`,
+   energy:`Expansion keeps cooling the plasma until matter can finally hold together.`,
+   echo:`Persistent storage: a value written down that stays put after the moment of creation has passed.`},
+  {type:'rung', n:3, motif:'star', title:'Stars → heavier elements', tag:'A richer alphabet', power:'gravity → fusion',
+   step:`Gravity gathers gas into stars; fusion forges carbon, oxygen and iron, and supernovae scatter them across space.`,
+   abstraction:`From two elements to ninety — a far richer alphabet for building structure. We start climbing.`,
+   energy:`Gravity gathers and compresses gas until fusion ignites: the first great engine of complexity. The pattern will repeat higher up the climb: a new energy flow appears, information learns to ride it, and larger structures become possible — sunlight for photosynthesis, oxygen for respiration, electricity for computation.`,
+   echo:`Expanding the character set — nature gets more basic building blocks, and more kinds of structure become expressible.`},
+  {type:'rung', n:4, motif:'planet', title:'Planets → chemistry', tag:'A world where chemistry can start',
+   step:`Dust and rock settle into worlds. On the young Earth, oceans, sunlight and chemical gradients meet.`,
+   abstraction:`Chemistry turns combinatorial — molecules become parts that snap together in countless ways.`,
+   energy:`Sunlight from above; geothermal heat and mineral gradients below.`,
+   echo:`Not life yet, and not code yet — just a stable, energized world where atoms and molecules can gather, react and start trying combinations. The stage is set.`},
+
+  {type:'era', era:'life'},
+  {type:'rung', n:5, motif:'replicate', title:'Self-replication', tag:'Heredity — before DNA, before life',
+   step:`Before cells, before DNA, before anything we would call "alive", heredity appears. RNA is the leading candidate because it can both store sequence and catalyze reactions, so it might have helped copy itself — but the route is not settled.`,
+   abstraction:`The pivotal trick is not life but <b>heredity</b> — information learning to transmit itself <b>through time</b>. Copying comes first; biology only lifts off afterward, riding on top of it.`,
+   energy:`Chemical gradients at alkaline vents, wet-dry cycles on land, mineral surfaces or a lightning-charged "primordial soup" may have supplied the push.`,
+   echo:`A program whose whole content is <b>copy me</b> — the first replicator, the seed of all the rest (Dawkins' replicator; the RNA world).`,
+   note:`How it happened is genuinely open. RNA-world starts with a self-copying molecule; metabolism-first starts with energy-harvesting reaction networks; lipid-world and protocell ideas start with compartments. Hybrid stories let these co-evolve. The narrower claim here is that once any system can preserve and copy differences, evolution has something to work on.`},
+  {type:'rung', n:6, motif:'nucleotide', bigmotif:true, motifcap:`phosphate · sugar · base → a natural backbone`, title:'The genetic code', tag:'Storage splits from doing',
+   step:`The fragile copying of rung 5 gets a sturdier upgrade. Each nucleotide is a three-part module: phosphate, sugar, base. The phosphate of one links to the sugar of the next, making a repeating sugar-phosphate spine; the bases jut inward like letters. Pair one strand with its complement and the letters zip into a twisted ladder: DNA.`,
+   abstraction:`A clean split: DNA is <b>stable storage</b>, proteins are <b>active machinery</b>. Digital memory, analog hands.`,
+   energy:`The cell's chemistry drives both the copying and the translation.`,
+   echo:`Von Neumann's architecture — memory kept separate from processor — and the codon table is a literal symbol table.`},
+  {type:'rung', n:7, motif:'cell', title:'The cell', tag:'A self is drawn',
+   step:`A fatty membrane wraps the replicator. Inside: controlled chemistry. Outside: everything else. Their last shared ancestor is LUCA.`,
+   abstraction:`A boundary between <b>self</b> and <b>world</b> — an individual that actively holds itself together against decay.`,
+   energy:`The membrane lets the cell pump ions and bank energy as gradients — a rechargeable battery.`,
+   echo:`Encapsulation: a bounded process with private internal state and a public interface.`},
+  {type:'rung', n:8, motif:'valence', title:'Sensing → valence', tag:'Good and bad are born',
+   step:`Receptor proteins change shape when touched by light, heat or food, and trigger a response: move toward, or move away.`,
+   abstraction:`The world gets sorted into <b>good</b> and <b>bad</b> relative to survival — the first flicker of meaning.`,
+   energy:`A tiny chemical signal steers a much larger action: amplification.`,
+   echo:`A thermostat; an if-then rule; Bennett's Roomba bumping a wall and turning away.`},
+  {type:'rung', n:9, motif:'photo', title:'Photosynthesis', tag:'A new sun-fed economy', power:'sunlight → photosynthesis',
+   step:`Cyanobacteria learn to eat sunlight. Their waste — oxygen — slowly floods the oceans and then the sky (the Great Oxidation, ~2.4 billion years ago).`,
+   abstraction:`A vastly larger, renewable energy budget — and a feedback loop that spans the whole planet.`,
+   energy:`Sunlight captured directly, for the very first time.`,
+  echo:`A new power supply rewires what the entire system can afford to compute.`},
+  {type:'rung', n:10, motif:'symbiosis', title:'Respiration + symbiosis', tag:'Burning bright — a bootstrapping', power:'oxygen → respiration',
+   step:`Some bacteria learn to use that new oxygen to burn fuel far harder — roughly 15× more energy per meal. Then one cell swallows an oxygen-breathing bacterium, which stays on as the mitochondrion.`,
+   abstraction:`A self-reinforcing loop — oxygen-makers and oxygen-burners feeding each other — and partnership itself becomes another way for the climb to climb.`,
+   energy:`Aerobic respiration: the high-octane upgrade that will later pay for muscles and brains.`,
+   echo:`Endosymbiosis as architecture: a once-independent energy engine becomes an internal module, and the host cell gains powers neither partner had alone.`},
+  {type:'rung', n:11, motif:'cluster', title:'Multicellularity', tag:'Many cells, one body',
+   step:`Cells stop parting ways after they divide. They specialize — skin, gut, muscle — and cooperate.`,
+   abstraction:`Division of labor, and a brand-new problem: coordinating all the parts into a single whole.`,
+   energy:`The aerobic surplus funds bodies far larger than any single cell could be.`,
+   echo:`From one process to many — distributed components that must be orchestrated.`},
+
+  {type:'era', era:'minds'},
+  {type:'rung', n:12, motif:'neuron', title:'Neurons', tag:'Wiring for coordination',
+   step:`A dedicated signaling tissue appears. Edgar Adrian's key clues: each spike is all-or-none; stimulus strength is carried largely by spike frequency (rate coding); and adaptation resets sensitivity to the current background, letting finite firing rates track enormous shifts in intensity.`,
+   abstraction:`Now signals can be wired together. Mixing excitation and inhibition computes <b>context-dependent</b> logic: if warm, approach — unless threatened.`,
+   energy:`Fast electrical-chemical signaling — costly, but far quicker than chemistry alone.`,
+   echo:`McCulloch and Pitts turned the all-or-none spike into logic: fire/not fire, true/false, on/off. The modern nonlinearity is the softened heir of that switch — a weighted sum blends, but a threshold or sigmoid decides. Stack those decisions and XOR stops being impossible.`},
+  {type:'transduction'},
+  {type:'rung', n:13, motif:'steering', title:'Steering (first brains)', tag:'The first arms race — a bootstrapping',
+   step:`Early brains categorize the world and steer the body — toward food, away from harm. Predators and prey light an arms race, and the Cambrian explodes with new forms.`,
+   abstraction:`Centralized control — one place that integrates the senses and commits the body to a direction.`,
+   energy:`Movement is expensive, but it opens access to concentrated food. Predator and prey begin spending energy on speed, sensing and control.`,
+   echo:`A control loop: sense → decide → act — the governor sitting at the center of the machine.`},
+  {type:'rung', n:14, motif:'rpe', title:'Reinforcing (affect)', tag:'Learning to predict',
+   step:`Ancient neuromodulators — dopamine, serotonin — wash over the brain, setting moods and, crucially, teaching. Dopamine signals surprise: reward better or worse than expected.`,
+   abstraction:`From reflex to <b>prediction</b>. Valence deepens into affect (mood, drive) and into learning from the gap between expectation and outcome.`,
+   energy:`Cheap chemical broadcasts retune the whole network at once.`,
+   echo:`This <b>is</b> reinforcement learning: not reward alone, but reward minus expectation — the temporal-difference signal Sutton and Barto formalized, and Schultz found in dopamine.`},
+  {type:'tdinterlude'},
+  {type:'rung', n:15, motif:'world', title:'Simulating', tag:'The world can run without the world',
+   step:`The mammalian neocortex builds an inner model rich enough to decouple from the present. The animal can run a possible action, feel out its likely consequences, and cancel it before the body moves.`,
+   abstraction:`A huge abstraction jump: information no longer only steers action in real time; it can create a private, counterfactual world. Planning, imagination and "what if" are offline computation — trial and error moved inside the head.`,
+   energy:`A big cortex is metabolically expensive — affordable only thanks to rungs 9 and 10.`,
+   echo:`Model-based planning and world models: the agent learns not just what to do, but how the world is likely to answer if it does it.`},
+  {type:'rung', n:16, motif:'mirror', title:'Mentalizing', tag:'There is a world — and this is me',
+   step:`Primates start modeling other minds — what does she see, want, know? Then the model turns inward, onto the self.`,
+   abstraction:`Self-reference: the modeler appears inside its own model. A flash of "I" — evolved and continuous, not bestowed from outside.`,
+   energy:`Bigger social brains, paid for by richer diets and cooperation.`,
+   echo:`Meta-models and recursion — a system that represents and reasons about itself.`,
+   note:`Exactly where felt experience switches on is one of the deepest open questions. The story's wager is continuum, not magic.`},
+
+  {type:'interlude'},
+
+  {type:'era', era:'symbols'},
+  {type:'rung', n:17, motif:'speech', title:'Language', tag:'Inheritance outside the genes',
+   step:`Humans pair arbitrary sounds with meanings and recombine them by grammar — unlimited messages from a finite kit.`,
+   abstraction:`Information now copies <b>between minds</b> and <b>across generations</b> — a second inheritance channel, far faster than DNA.`,
+   energy:`Talking is cheap; the payoff — pooled, accumulating knowledge — is enormous.`,
+   echo:`A grammar over arbitrary tokens is a programming language: finite rules, infinite valid expressions. (Deutsch: the door to open-ended knowledge.)`},
+  {type:'rung', n:18, motif:'tablet', title:'Writing & number', tag:'Memory leaves the body',
+   step:`Marks on clay and paper store words and quantities outside any single head. Notation lets thought be carried out by rule.`,
+   abstraction:`External, permanent memory — and formal systems that run on symbols alone.`,
+   energy:`Knowledge no longer dies with the knower; it compounds across centuries.`,
+   echo:`External storage and the algorithm — rules applied mechanically to symbols.`},
+  {type:'rung', n:19, motif:'axes', title:'Higher dimensions', tag:'Space beyond three',
+   step:`In 1843, struck by an idea on Dublin's Broom Bridge, William Rowan Hamilton carves the quaternions into the stone — the leap from 3 dimensions to 4. Maxwell's fields and Einstein's spacetime follow.`,
+   abstraction:`Reality re-described in abstract, high-dimensional spaces. Linear algebra becomes the shared language of physics.`,
+   energy:`Almost free — pure abstraction — yet it reorganizes everything that comes next.`,
+   echo:`The very mathematics — vectors in many dimensions — that machine learning would later run on.`},
+
+  {type:'era', era:'machines'},
+  {type:'rung', n:20, motif:'turing', title:'Universal computation', tag:'Thought leaves the body too',
+   step:`Turing defines the universal machine; Shannon founds information theory; Landauer and Bennett show that erasing a single bit must cost a sliver of energy.`,
+   abstraction:`Computation is <b>substrate-independent</b> — the same process can run on neurons, valves or silicon. Information, energy and entropy are revealed as one.`,
+   energy:`Landauer's limit: kT·ln2, the irreducible energy price of forgetting one bit.`,
+   echo:`This rung <b>is</b> the echo made literal — the general-purpose computer.`},
+  {type:'rung', n:21, motif:'embed', title:'Learned representations', tag:'Meaning as geometry', power:'electricity → compute',
+   step:`Instead of hand-coding rules, neural networks learn — packing meaning into vectors in high-dimensional space.`,
+   abstraction:`Representation discovered, not dictated; concepts become directions and distances (the path opened at rung 19).`,
+   energy:`Vast training compute — electricity at industrial scale.`,
+   echo:`Back to biology: vision also builds representation in layers — edges and orientations into contours, parts, objects and scenes. Not just more precise: more abstract, more invariant, more meaningful.`},
+  {type:'rung', n:22, motif:'attention', title:'The Transformer', tag:'Standing on our own invention',
+   step:`The attention mechanism (query, key, value) lets a model weigh every word against every other — and it trains on our greatest invention: language, including code.`,
+   abstraction:`Information processing bootstraps off the symbol-system of rung 17 and becomes a capable thing in its own right.`,
+   energy:`Attention is parallel — it rides the full force of modern accelerators.`,
+   echo:`The loop closes: the machine learns from the language the climb produced, and begins to extend it.`},
+
+  {type:'twoclocks'},
+
+  {type:'rightnow'},
+
+  {type:'rung', n:23, motif:'spiral', title:'Recursive self-improvement → beyond', tag:'The arrow continues',
+   step:`Systems begin to write and improve systems. Schmidhuber sketches machines that rewrite their own code; Deutsch argues knowledge can grow without limit.`,
+   abstraction:`The climb may become self-propelling — information reshaping itself, faster than biology ever could.`,
+   energy:`Whatever we can supply: the binding constraint becomes energy once more — the story's first character, and perhaps its last.`,
+   echo:`The parallel and the thing become one. The echo is now the voice.`,
+   note:`Where this leads is unknown and contested — utopia, risk, or something stranger. The point being made here is the continuity: one unbroken arrow from the Bang to now.`},
+
+  {type:'closing'},
+];
+
+/* ---------- render ---------- */
+function facetRow(lab, txt, cls){ return `<div class="facet ${cls||''}"><div class="lab">${lab}</div><div class="txt">${txt}</div></div>`; }
+function feltForSlide(s){
+  if(s.type==='tdinterlude') return {label:'affect?', cls:''};
+  if(s.type==='transduction') return {label:'neural?', cls:''};
+  if(s.type==='interlude') return {label:'self?', cls:''};
+  if(s.type!=='rung') return null;
+  const n=s.n;
+  if(n<=7) return {label:'-', cls:''};
+  if(n<=11) return {label:'valence?', cls:''};
+  if(n<=13) return {label:'neural?', cls:''};
+  if(n===14) return {label:'affect?', cls:''};
+  if(n===15) return {label:'inner world?', cls:''};
+  if(n===16) return {label:'self?', cls:''};
+  if(n<=19) return {label:'reportable', cls:''};
+  if(n===20) return {label:'not implied', cls:'machine'};
+  if(n===21) return {label:'ingredients?', cls:'machine'};
+  if(n===22) return {label:'unknown', cls:'machine'};
+  return {label:'open', cls:'machine'};
+}
+function feltChip(s){
+  const f=feltForSlide(s);
+  return f ? `<span class="felt-chip ${f.cls||''}">felt: ${f.label}</span>` : '';
+}
+
+function renderSlide(s){
+  if(s.type==='title'){
+    return `<div class="wrap" style="--era:var(--physics)">
+      <h1 class="title">The Climb of Information</h1>
+      <div class="subtitle">From the Big Bang to AI — and, perhaps, beyond</div>
+      <div class="tagline">One continuous ascent &middot; five eras &middot; twenty-three rungs</div>
+    </div>`;
+  }
+  if(s.type==='thesis'){
+    return `<div class="wrap" style="--era:var(--physics)">
+      <div class="chips"><span class="era-chip">The thesis</span></div>
+      <h2 class="rung-title">One process, one currency</h2>
+      <p class="lead">Since the Big Bang, a single process has built ever-higher levels at which information is <b>stored, copied, processed and represented</b>. Every step is paid for by a flow of <b>energy</b>, and most are <b>echoed</b> later in the history of computing. The currency never changes: information and entropy are the same quantity. What follows is that climb.</p>
+      <div class="legend">
+        <div class="item"><div class="k s">Step</div><div class="v">what actually happens in nature</div></div>
+        <div class="item"><div class="k a">Abstraction</div><div class="v">the new informational trick it unlocks</div></div>
+        <div class="item"><div class="k e">Energy</div><div class="v">the flow that pays for the new rung</div></div>
+        <div class="item"><div class="k c">Echo</div><div class="v">its parallel in computing &amp; AI</div></div>
+      </div>
+    </div>`;
+  }
+  if(s.type==='era'){
+    const e=ERAS[s.era];
+    return `<div class="wrap" style="--era:${e.color}">
+      <div class="era-num">${e.num}</div>
+      <h2 class="era-name"><span class="accent">${e.name}</span></h2>
+      <div class="era-blurb">${e.sub.charAt(0).toUpperCase()+e.sub.slice(1)}.</div>
+    </div>`;
+  }
+  if(s.type==='closing'){
+    return `<div class="wrap" style="--era:var(--machines)">
+      <div class="chips"><span class="era-chip">The open end</span></div>
+      <h2 class="rung-title">Information, reuniting with itself</h2>
+      <p class="lead">From maximum simplicity to minds that model the cosmos that made them — one unbroken climb, each rung paid in energy, each echoed in our machines. We are not its summit, only its current edge: a flea on the penny-farthing, the glitter on the wave. Deutsch's wager is that explanation, once begun, can grow without limit — <em>the beginning of infinity</em>; the transhumanist reading is that the climb now runs on through us, into minds we are building. Either way, the arrow that began at the Bang has not stopped. Perhaps, somewhere beyond us, information reunites with itself.</p>
+      <div class="sources">Further reading &middot; <b>Max Bennett, <em>A Brief History of Intelligence</em></b> — the spine of Eras III–V; <a href="https://www.abriefhistoryofintelligence.com/bibliography" target="_blank" rel="noopener">full online bibliography</a> &middot; Lloyd, <em>Programming the Universe</em> &middot; Dawkins, <em>The Selfish Gene</em> &middot; Lane, <em>The Vital Question</em> &middot; Deutsch, <em>The Beginning of Infinity</em> &middot; Adrian; McCulloch &amp; Pitts; Shannon &middot; Landauer &amp; C. Bennett &middot; Schultz / Sutton &amp; Barto &middot; Brian Christian, <em>The Alignment Problem</em> &middot; Anil Seth, <em>Being You</em> &middot; Libet; Soon et al.; Schurger &middot; Schmidhuber.</div>
+    </div>`;
+  }
+  if(s.type==='interlude'){
+    return `<div class="wrap" style="--era:${ERAS.minds.color}">
+      <div class="chips"><span class="era-chip">Interlude</span>${feltChip(s)}</div>
+      <h2 class="rung-title">A flea on a penny-farthing</h2>
+      <div class="rung-tag">On not being the master of it all</div>
+      <div class="facets">
+        <div class="facet beat"><div class="txt">The climb tempts us to crown ourselves at the top of it. But the conscious self is a thin, late layer on a vast inherited machine — <b>a flea on a penny-farthing</b>, certain it is steering; <b>sunlight glittering on the wave</b>, mistaking itself for the sea.</div></div>
+        <div class="facet beat"><div class="txt">Almost everything we are runs without us — the ancient chemistry of rung 14, the steering body of rung 13, the bare replicator of rung 5 — all older and larger than the "I" that takes the credit.</div></div>
+        <div class="facet beat"><div class="txt hedge">And the steering itself is in doubt: the brain shows signs of an action before we report choosing it — Libet's readiness potential (~0.5s), and later fMRI foreshadowing simple choices seconds ahead. How to read this is fiercely contested (Schurger: perhaps just noise reaching a threshold) — but it unsettles the conscious self as sole author.</div></div>
+        <div class="facet beat"><div class="txt">Decentred this way, the leap still to come — minds in silicon climbing past us — looks less like a rupture than the next rung.</div></div>
+      </div>
+    </div>`;
+  }
+  if(s.type==='tdinterlude'){
+    return `<div class="wrap" style="--era:${ERAS.minds.color}">
+      <div class="chips"><span class="era-chip">Interlude</span><span class="rung-chip">After rung 14</span>${feltChip(s)}</div>
+      <h2 class="rung-title">The actor and the critic</h2>
+      <div class="rung-tag">When surprise becomes a teacher</div>
+      <div class="facets">
+        <div class="facet beat"><div class="tdflow">
+          <div class="tdnode"><div class="k">Actor</div><div class="v">chooses a move from the current state</div></div>
+          <div class="tdarrow">→</div>
+          <div class="tdnode"><div class="k">Critic</div><div class="v">predicts how good that state is likely to be</div></div>
+          <div class="tdarrow">→</div>
+          <div class="tdnode"><div class="k">Error</div><div class="v">the next moment proves the prediction better or worse than expected</div></div>
+        </div></div>
+        <div class="facet beat"><div class="txt">Minsky's problem was credit assignment: if reward comes only at the end, which earlier move deserved the credit? Sutton and Barto's answer was temporal-difference learning — learn from the change in expectation from one moment to the next.</div></div>
+        <div class="facet beat"><div class="txt">Tesauro's TD-Gammon showed how strong this could be: self-play plus TD learning discovered expert backgammon without being handed human strategy.</div></div>
+        <div class="facet beat"><div class="txt">Then the echo snapped shut. Schultz found dopamine firing for reward prediction error; Dayan and Read Montague connected that signal to TD learning. A reward that was expected teaches little; an unexpected reward teaches a lot; a missing reward teaches too.<div class="tdformula">prediction error = reward + next expectation - current expectation</div></div></div>
+        <div class="facet beat"><div class="txt">In the basal ganglia version, the critic learns what to expect, the actor learns what to do, and dopamine broadcasts the surprise that trains them both. The caveat matters: dopamine is not only this. But as a bridge between brains and reinforcement learning, it is one of the cleanest echoes in the whole climb.</div></div>
+      </div>
+    </div>`;
+  }
+  if(s.type==='transduction'){
+    return `<div class="wrap" style="--era:${ERAS.minds.color}">
+      <div class="chips"><span class="era-chip">Echo</span><span class="rung-chip">After rung 12</span>${feltChip(s)}</div>
+      <h2 class="rung-title">Clicks in the dark</h2>
+      <div class="rung-tag">No intelligence touches the world directly</div>
+      <div class="facets">
+        <div class="facet beat"><div class="tracegrid">
+          <div class="tracebox"><div class="k">Organism</div><div class="v">Light, pressure and chemicals become receptor changes, spikes, rates, timings and population patterns.</div></div>
+          <div class="tracebox machine"><div class="k">Model</div><div class="v">Sound becomes samples; images become pixels; text becomes tokens and vectors.</div></div>
+        </div></div>
+        <div class="facet beat"><div class="txt">The model never touches the medium. The organism never touches the world raw. Both live downstream of encoding.</div></div>
+        <div class="facet beat"><div class="txt">The caveat is the point: a machine's numbers are file formats and learned activations; a human's signals are embedded in a living body, action, hunger, danger and survival. The parallel is not "humans are just computers." It is that intelligence begins after translation.</div></div>
+        <div class="facet beat"><div class="txt">Perception is not the world pouring into the brain. It is the brain reaching outward with a model, corrected by sensory evidence — Anil Seth's controlled hallucination, kept honest by clicks in the dark.</div></div>
+      </div>
+    </div>`;
+  }
+  if(s.type==='rightnow'){
+    return `<div class="wrap" style="--era:var(--machines)">
+      <div class="chips"><span class="era-chip">Right now</span><span class="power-chip">⚡ electricity → compute</span></div>
+      <h2 class="rung-title">The universe spends its oldest savings</h2>
+      <div class="rung-tag">Each rung has cost more energy than the last — and we are the steepest yet</div>
+      <div class="facets">
+        <div class="facet beat"><div class="txt">Every step up this ladder has been hungrier than the one before. A star burns gravitational potential; early life lives on a thin drip of sunlight; the brain is already a glutton — about 2% of your body mass, ~20% of your calories — yet it still runs on roughly <b>20 watts</b>, a dim bulb.</div></div>
+        <div class="facet beat"><div class="txt">The mind on the other side of this sentence does not run on 20 watts. Training one frontier model is measured in <b>megawatt-hours</b>; serving the fleet is measured in power stations. That is why AI has abruptly become an <b>energy</b> story — data-centre build-outs, strained grids, a mothballed reactor switched back on to feed a single AI campus.</div></div>
+        <div class="facet beat"><div class="statstrip">
+          <div class="stat"><div class="num">~20 W</div><div class="cap">a human brain — about a fifth of your calories</div></div>
+          <div class="stat"><div class="num">~1,300 MWh</div><div class="cap">to train GPT-3 (≈130 US homes for a year); later models far more</div></div>
+          <div class="stat"><div class="num">~1% → 3%</div><div class="cap">data centres' share of world electricity, now → 2030 (IEA)</div></div>
+          <div class="stat"><div class="num">835 MW</div><div class="cap">Three Mile Island Unit 1, restarting ~2027 for one AI campus</div></div>
+        </div></div>
+        <div class="facet beat"><div class="txt">This is not a departure from the story — it <b>is</b> the story. The low-entropy spring of rung 1 is the budget being spent; every jump in information has cashed in a slice of it; and thinking has a hard floor (Landauer, rung 20) — you cannot think for free. The energy blazing through a data centre is the same arrow that lit the first stars, arriving at its most concentrated, self-aware form yet.</div></div>
+        <div class="facet beat"><div class="bigline">The universe is spending its oldest savings to build its newest minds.</div></div>
+      </div>
+    </div>`;
+  }
+  if(s.type==='twoclocks'){
+    return `<div class="wrap" style="--era:var(--machines)">
+      <div class="chips"><span class="era-chip">Echo</span></div>
+      <h2 class="rung-title">Two clocks</h2>
+      <div class="rung-tag">The same tricks, found twice — once by evolution, once by us</div>
+      <div class="facets">
+        <div class="facet beat"><div class="txt">Look back down the climb and the echoes line up — and so do two wildly different clocks. Nature stumbled on each trick across deep time; computing re-derived the very same trick in decades.</div></div>
+        <div class="facet beat"><div class="clocks">
+          <div class="h">The trick</div><div class="h">Deep time found it…</div><div class="h">…we re-found it</div>
+          <div class="t">Memory &amp; heredity</div><div class="deep">DNA — ~3.8 billion yrs</div><div class="comp">digital storage — ~80 yrs</div>
+          <div class="t">Learning from reward</div><div class="deep">dopamine — ~500 million yrs</div><div class="comp">TD / reinforcement learning — 1980s</div>
+          <div class="t">Seeing features</div><div class="deep">eyes, since the Cambrian — ~540M yrs</div><div class="comp">convolutional nets — 2010s</div>
+          <div class="t">Attention</div><div class="deep">brains — hundreds of millions of yrs</div><div class="comp">the Transformer — 2017</div>
+          <div class="t">Grammar</div><div class="deep">language — ~100,000s of yrs</div><div class="comp">large language models — 2020s</div>
+        </div></div>
+        <div class="facet beat"><div class="txt">Evolution mined these blind, paying in extinctions; we re-derive them in a single generation, because we can <b>copy and reason</b> instead of <b>mutate and die</b>. That speed-up <em>is</em> the echo — and why the final rungs arrive so breathtakingly fast.</div></div>
+      </div>
+    </div>`;
+  }
+  // rung
+  const e=ERAS[eraOfRung(s.n)];
+  let f = facetRow('Step', s.step)
+        + facetRow('Abstraction', s.abstraction)
+        + facetRow('Energy', s.energy)
+        + facetRow('Echo', s.echo, 'echo');
+  if(s.note) f += facetRow('Open question', s.note, 'note');
+  return `<div class="wrap" style="--era:${e.color}">
+    <div class="chips"><span class="era-chip">${e.name}</span><span class="rung-chip">Rung ${s.n} / 23</span>${feltChip(s)}${s.power?`<span class="power-chip">⚡ ${s.power}</span>`:''}</div>
+    <h2 class="rung-title">${s.title}</h2>
+    <div class="rung-tag">${s.tag}</div>
+    <div class="body">
+      <div class="facets">${f}</div>
+      <div class="motif ${s.bigmotif?'motif-lg':''}"><svg viewBox="0 0 120 120">${M[s.motif]||''}</svg>${s.motifcap?`<div class="motif-cap">${s.motifcap}</div>`:''}</div>
+    </div>
+  </div>`;
+}
+
+/* build DOM */
+const deck=document.getElementById('deck');
+SLIDES.forEach((s,i)=>{
+  const sec=document.createElement('section');
+  sec.className='slide';
+  sec.dataset.i=i;
+  sec.innerHTML=renderSlide(s);
+  deck.appendChild(sec);
+});
+const slideEls=[...document.querySelectorAll('.slide')];
+const LAST=SLIDES.length-1;
+
+/* era legend */
+const legend=document.getElementById('eralegend');
+legend.innerHTML=ERA_ORDER.map(k=>`<div class="e" data-era="${k}"><span class="dot" style="background:${ERAS[k].color};color:${ERAS[k].color}"></span>${ERAS[k].name}</div>`).join('');
+
+/* rail geometry */
+const RAIL=document.getElementById('rail');
+const N=23, PAD=16, W=1000, BASE=88, MINH=8, MAXH=66;
+function rungX(k){ const stepW=(W-2*PAD)/N; return PAD + k*stepW; }
+function stepW(){ return (W-2*PAD)/N; }
+function rungTopY(k){ const h = MINH + (k/(N-1))*(MAXH-MINH); return BASE - h; }
+function slideIndexForRung(n){ return SLIDES.findIndex(s=>s.type==='rung'&&s.n===n); }
+
+function renderRail(state){
+  const sw=stepW();
+  let svg='';
+  for(let k=0;k<N;k++){
+    const n=k+1, era=eraOfRung(n), col=ERAS[era].color;
+    const x=rungX(k), y=rungTopY(k), h=BASE-y;
+    let op=0.26;
+    if(state.activeRung===n) op=1;
+    else if(state.eraHi===era) op=0.6;
+    svg+=`<rect data-jump="${slideIndexForRung(n)}" x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${(sw-3).toFixed(1)}" height="${h.toFixed(1)}" rx="2" fill="${col}" opacity="${op}"/>`;
+  }
+  // climber
+  if(state.activeRung>=1 && state.activeRung<=N){
+    const k=state.activeRung-1, col=ERAS[eraOfRung(state.activeRung)].color;
+    const cx=rungX(k)+ (sw-3)/2, cy=rungTopY(k)-7;
+    svg+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="${col}" opacity="0.28"/>`;
+    svg+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5" fill="${col}"/>`;
+  } else if(state.beyond){
+    const cx=rungX(N-1)+(sw-3)/2+sw, cy=rungTopY(N-1)-14, col=ERAS.machines.color;
+    svg+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="9" fill="${col}" opacity="0.28"/>`;
+    svg+=`<circle cx="${cx.toFixed(1)}" cy="${cy.toFixed(1)}" r="4.5" fill="${col}"/>`;
+  }
+  RAIL.innerHTML=svg;
+}
+
+/* ---------- nav state ---------- */
+let i=0, f=0;
+function fragsIn(idx){ return slideEls[idx].querySelectorAll('.facet'); }
+
+function railStateFor(idx){
+  const s=SLIDES[idx];
+  if(s.type==='rung') return {activeRung:s.n, eraHi:eraOfRung(s.n)};
+  if(s.type==='era'){ const first={physics:1,life:5,minds:12,symbols:17,machines:20}[s.era]; return {activeRung:first, eraHi:s.era}; }
+  if(s.type==='closing') return {activeRung:0, eraHi:'machines', beyond:true};
+  if(s.type==='interlude') return {activeRung:16, eraHi:'minds'};
+  if(s.type==='transduction') return {activeRung:12, eraHi:'minds'};
+  if(s.type==='tdinterlude') return {activeRung:14, eraHi:'minds'};
+  if(s.type==='rightnow') return {activeRung:22, eraHi:'machines'};
+  if(s.type==='twoclocks') return {activeRung:22, eraHi:'machines'};
+  return {activeRung:0, eraHi:null}; // title, thesis
+}
+
+function curEraColor(idx){
+  const s=SLIDES[idx];
+  if(s.type==='rung') return ERAS[eraOfRung(s.n)].color;
+  if(s.type==='era') return ERAS[s.era].color;
+  if(s.type==='closing') return ERAS.machines.color;
+  if(s.type==='interlude') return ERAS.minds.color;
+  if(s.type==='transduction') return ERAS.minds.color;
+  if(s.type==='tdinterlude') return ERAS.minds.color;
+  if(s.type==='rightnow') return ERAS.machines.color;
+  if(s.type==='twoclocks') return ERAS.machines.color;
+  return ERAS.physics.color;
+}
+
+function apply(){
+  slideEls.forEach((el,idx)=>el.classList.toggle('active', idx===i));
+  const frs=fragsIn(i);
+  frs.forEach((fr,idx)=>fr.classList.toggle('on', idx<f));
+  // top bar + accent
+  const col=curEraColor(i);
+  document.documentElement.style.setProperty('--era',col);
+  document.getElementById('topbar').style.width=((i)/(LAST)*100)+'%';
+  document.getElementById('topbar').style.background=col;
+  // counter
+  const s=SLIDES[i];
+  let label = s.type==='rung' ? `Rung ${s.n} / 23` : (s.type==='era'?ERAS[s.era].num : (s.type==='closing'?'Beyond':(s.type==='interlude'?'Interlude':(s.type==='rightnow'?'Right now':(s.type==='twoclocks'?'Two clocks':(s.type==='thesis'?'Thesis':'Start'))))));
+  document.getElementById('counter').textContent = `${label}   ${i+1}/${SLIDES.length}`;
+  // rail + legend
+  const st=railStateFor(i);
+  renderRail(st);
+  [...legend.children].forEach(c=>c.classList.toggle('cur', c.dataset.era===st.eraHi));
+}
+
+function next(){
+  const frs=fragsIn(i);
+  if(f<frs.length){ f++; apply(); return; }
+  if(i<LAST){ i++; f=0; apply(); }
+}
+function prev(){
+  if(f>0){ f--; apply(); return; }
+  if(i>0){ i--; f=fragsIn(i).length; apply(); }
+}
+function jump(idx){ if(idx<0||idx>LAST)return; i=idx; f=fragsIn(i).length; apply(); }
+
+/* events */
+document.getElementById('next').addEventListener('click',next);
+document.getElementById('prev').addEventListener('click',prev);
+document.getElementById('footer').addEventListener('click',e=>{
+  const r=e.target.closest('[data-jump]'); if(r){ jump(parseInt(r.dataset.jump,10)); }
+});
+window.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown'){e.preventDefault();next();}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();prev();}
+  else if(e.key==='Home'){e.preventDefault();i=0;f=0;apply();}
+  else if(e.key==='End'){e.preventDefault();i=LAST;f=fragsIn(i).length;apply();}
+  else if(e.key==='f'||e.key==='F'){ if(!document.fullscreenElement)document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.(); }
+});
+apply();
+</script>
+</body>
+</html>
