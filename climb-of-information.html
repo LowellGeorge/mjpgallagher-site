@@ -4,17 +4,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Climb of Information</title>
-<meta name="description" content="One continuous ascent from the Big Bang to AI — five eras, twenty-three rungs. An interactive deck on how information has been stored, copied, processed and represented at ever-higher levels, each step paid for in energy and echoed in computing.">
-<meta name="author" content="Michael Gallagher">
-<link rel="canonical" href="https://mjpgallagher.com/climb-of-information.html">
-<meta property="og:type" content="website">
-<meta property="og:title" content="The Climb of Information">
-<meta property="og:description" content="From the Big Bang to AI — and, perhaps, beyond. One unbroken climb: five eras, twenty-three rungs, each paid in energy and echoed in our machines.">
-<meta property="og:url" content="https://mjpgallagher.com/climb-of-information.html">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The Climb of Information">
-<meta name="twitter:description" content="From the Big Bang to AI — and, perhaps, beyond. One unbroken climb: five eras, twenty-three rungs, each paid in energy and echoed in our machines.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%230a0a14'/%3E%3Cg fill='%2338bdf8'%3E%3Crect x='14' y='70' width='12' height='18'/%3E%3Crect x='31' y='60' width='12' height='28'/%3E%3Crect x='48' y='48' width='12' height='40'/%3E%3Crect x='65' y='34' width='12' height='54'/%3E%3Crect x='82' y='18' width='12' height='70'/%3E%3C/g%3E%3C/svg%3E">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
@@ -145,13 +134,32 @@
   .tdnode .v{font-size:clamp(13.5px,1.5vw,16px);line-height:1.42;color:var(--ink);}
   .tdarrow{display:flex;align-items:center;justify-content:center;font-size:28px;color:var(--minds);font-family:var(--mono);}
   .tdformula{font-family:var(--mono);font-size:clamp(13px,1.45vw,16px);color:#ffe29a;background:rgba(251,191,36,.08);border-left:2px solid var(--minds);padding:9px 12px;border-radius:0 8px 8px 0;margin-top:12px;}
-  .tracegrid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 2px;}
-  .tracebox{border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:14px 16px;background:rgba(255,255,255,.035);}
-  .tracebox .k{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--minds);margin-bottom:10px;}
-  .tracebox .v{font-size:clamp(13.5px,1.5vw,16px);line-height:1.45;color:var(--ink);}
-  .tracebox.machine .k{color:var(--machines);}
+  .tdwrap{width:min(1160px,100%);}
+  .tdwrap .chips{margin-bottom:10px;}
+  .tdwrap .rung-title{font-size:clamp(30px,4.2vw,50px);}
+  .tdwrap .rung-tag{margin-bottom:12px;}
+  .tdwrap .facets{gap:8px;}
+  .tdwrap .facet.beat .txt{font-size:clamp(14.5px,1.55vw,17.5px);line-height:1.45;}
+  .tdwrap .tdnode{min-height:74px;padding:10px 14px;}
+  .tdgraph{border:1px solid rgba(255,255,255,.13);border-radius:10px;background:rgba(255,255,255,.035);padding:8px 12px 7px;}
+  .tdgraph-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:3px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .tdgraph-head b{color:#ffe29a;font-weight:500;}
+  .tdgraph-key{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+  .tdkey{width:18px;height:3px;border-radius:999px;display:inline-block;background:var(--minds);box-shadow:0 0 10px rgba(251,191,36,.45);}
+  .tdkey.dip{background:var(--machines);box-shadow:0 0 10px rgba(56,189,248,.45);}
+  .tdpanels{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .tdpanel{min-width:0;}
+  .tdpanel svg{display:block;width:100%;height:118px;}
+  .tdaxis{stroke:rgba(255,255,255,.22);stroke-width:1.4;}
+  .tdmark{stroke:rgba(255,255,255,.16);stroke-width:1;stroke-dasharray:3 4;}
+  .tdtrace{fill:none;stroke:var(--minds);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(251,191,36,.35));}
+  .tdtrace.dip{stroke:var(--machines);filter:drop-shadow(0 0 6px rgba(56,189,248,.38));}
+  .tdlabel{font:500 10px var(--mono);fill:var(--faint);}
+  .tdpanel-title{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;fill:#dfe3f2;}
+  .tdcaption{font-size:clamp(13.2px,1.35vw,15.5px);line-height:1.35;color:var(--muted);margin-top:5px;}
+  .tdcaption b{color:#fff;font-weight:600;}
   @media (max-width:760px){.tdflow{grid-template-columns:1fr}.tdarrow{display:none}.tdnode{min-height:0}}
-  @media (max-width:760px){.tracegrid{grid-template-columns:1fr}}
+  @media (max-width:760px){.tdpanels{grid-template-columns:1fr}.tdgraph-key{white-space:normal}.tdgraph-head{align-items:flex-start;flex-direction:column;}}
   @media (max-width:760px){.statstrip{grid-template-columns:repeat(2,1fr);}}
 
   /* footer: legend + staircase */
@@ -251,7 +259,7 @@ const SLIDES = [
    step:`Gravity gathers gas into stars; fusion forges carbon, oxygen and iron, and supernovae scatter them across space.`,
    abstraction:`From two elements to ninety — a far richer alphabet for building structure. We start climbing.`,
    energy:`Gravity gathers and compresses gas until fusion ignites: the first great engine of complexity. The pattern will repeat higher up the climb: a new energy flow appears, information learns to ride it, and larger structures become possible — sunlight for photosynthesis, oxygen for respiration, electricity for computation.`,
-   echo:`Expanding the character set — nature gets more basic building blocks, and more kinds of structure become expressible.`},
+   echo:`ASCII to Unicode: the character set grows from 128 symbols to over a hundred thousand — a richer alphabet, and whole writing systems become expressible.`},
   {type:'rung', n:4, motif:'planet', title:'Planets → chemistry', tag:'A world where chemistry can start',
    step:`Dust and rock settle into worlds. On the young Earth, oceans, sunlight and chemical gradients meet.`,
    abstraction:`Chemistry turns combinatorial — molecules become parts that snap together in countless ways.`,
@@ -289,20 +297,19 @@ const SLIDES = [
    step:`Some bacteria learn to use that new oxygen to burn fuel far harder — roughly 15× more energy per meal. Then one cell swallows an oxygen-breathing bacterium, which stays on as the mitochondrion.`,
    abstraction:`A self-reinforcing loop — oxygen-makers and oxygen-burners feeding each other — and partnership itself becomes another way for the climb to climb.`,
    energy:`Aerobic respiration: the high-octane upgrade that will later pay for muscles and brains.`,
-   echo:`Endosymbiosis as architecture: a once-independent energy engine becomes an internal module, and the host cell gains powers neither partner had alone.`},
+   echo:`The coprocessor folded onto the die: the FPU, once its own 8087 chip, becomes a permanent on-chip unit — and the whole computes what neither half could alone.`},
   {type:'rung', n:11, motif:'cluster', title:'Multicellularity', tag:'Many cells, one body',
    step:`Cells stop parting ways after they divide. They specialize — skin, gut, muscle — and cooperate.`,
    abstraction:`Division of labor, and a brand-new problem: coordinating all the parts into a single whole.`,
    energy:`The aerobic surplus funds bodies far larger than any single cell could be.`,
-   echo:`From one process to many — distributed components that must be orchestrated.`},
+   echo:`The monolith splits into microservices: many specialized single-job processes, and a brand-new hard problem — orchestrating them into one coherent system.`},
 
   {type:'era', era:'minds'},
   {type:'rung', n:12, motif:'neuron', title:'Neurons', tag:'Wiring for coordination',
    step:`A dedicated signaling tissue appears. Edgar Adrian's key clues: each spike is all-or-none; stimulus strength is carried largely by spike frequency (rate coding); and adaptation resets sensitivity to the current background, letting finite firing rates track enormous shifts in intensity.`,
    abstraction:`Now signals can be wired together. Mixing excitation and inhibition computes <b>context-dependent</b> logic: if warm, approach — unless threatened.`,
    energy:`Fast electrical-chemical signaling — costly, but far quicker than chemistry alone.`,
-   echo:`McCulloch and Pitts turned the all-or-none spike into logic: fire/not fire, true/false, on/off. The modern nonlinearity is the softened heir of that switch — a weighted sum blends, but a threshold or sigmoid decides. Stack those decisions and XOR stops being impossible.`},
-  {type:'transduction'},
+   echo:`McCulloch and Pitts saw it in 1943: balance excitation against inhibition and a neuron becomes a logic gate — the AND, OR and NOT that make "approach, unless threatened" computable. But a single linear unit can only cut the world with one straight line, so XOR defeats it. Add a nonlinearity and stack the layers, and the network folds the space until points no line could separate come cleanly apart. Without that fold a deep stack collapses back into one flat layer — the nonlinearity is what keeps it standing, like a soufflé holding its rise.`},
   {type:'rung', n:13, motif:'steering', title:'Steering (first brains)', tag:'The first arms race — a bootstrapping',
    step:`Early brains categorize the world and steer the body — toward food, away from harm. Predators and prey light an arms race, and the Cambrian explodes with new forms.`,
    abstraction:`Centralized control — one place that integrates the senses and commits the body to a direction.`,
@@ -318,7 +325,7 @@ const SLIDES = [
    step:`The mammalian neocortex builds an inner model rich enough to decouple from the present. The animal can run a possible action, feel out its likely consequences, and cancel it before the body moves.`,
    abstraction:`A huge abstraction jump: information no longer only steers action in real time; it can create a private, counterfactual world. Planning, imagination and "what if" are offline computation — trial and error moved inside the head.`,
    energy:`A big cortex is metabolically expensive — affordable only thanks to rungs 9 and 10.`,
-   echo:`Model-based planning and world models: the agent learns not just what to do, but how the world is likely to answer if it does it.`},
+   echo:`The machine version is a learned simulator: use real experience to build a model, then run private trial futures inside it before acting. Trial and error moves off the board and into imagination.`},
   {type:'rung', n:16, motif:'mirror', title:'Mentalizing', tag:'There is a world — and this is me',
    step:`Primates start modeling other minds — what does she see, want, know? Then the model turns inward, onto the self.`,
    abstraction:`Self-reference: the modeler appears inside its own model. A flash of "I" — evolved and continuous, not bestowed from outside.`,
@@ -337,7 +344,7 @@ const SLIDES = [
   {type:'rung', n:18, motif:'tablet', title:'Writing & number', tag:'Memory leaves the body',
    step:`Marks on clay and paper store words and quantities outside any single head. Notation lets thought be carried out by rule.`,
    abstraction:`External, permanent memory — and formal systems that run on symbols alone.`,
-   energy:`Knowledge no longer dies with the knower; it compounds across centuries.`,
+   energy:`A little work makes memory persistent: marks on clay or paper store information without a living brain burning calories to keep it active.`,
    echo:`External storage and the algorithm — rules applied mechanically to symbols.`},
   {type:'rung', n:19, motif:'axes', title:'Higher dimensions', tag:'Space beyond three',
    step:`In 1843, struck by an idea on Dublin's Broom Bridge, William Rowan Hamilton carves the quaternions into the stone — the leap from 3 dimensions to 4. Maxwell's fields and Einstein's spacetime follow.`,
@@ -359,7 +366,7 @@ const SLIDES = [
   {type:'rung', n:22, motif:'attention', title:'The Transformer', tag:'Standing on our own invention',
    step:`The attention mechanism (query, key, value) lets a model weigh every word against every other — and it trains on our greatest invention: language, including code.`,
    abstraction:`Information processing bootstraps off the symbol-system of rung 17 and becomes a capable thing in its own right.`,
-   energy:`Attention is parallel — it rides the full force of modern accelerators.`,
+   energy:`The energy stack is semiconductors: tens of billions of transistors in GPUs and TPUs switching in parallel, fed by data-centre megawatts. Attention turns language into matrix math, and matrix math into heat.`,
    echo:`The loop closes: the machine learns from the language the climb produced, and begins to extend it.`},
 
   {type:'twoclocks'},
@@ -380,7 +387,6 @@ const SLIDES = [
 function facetRow(lab, txt, cls){ return `<div class="facet ${cls||''}"><div class="lab">${lab}</div><div class="txt">${txt}</div></div>`; }
 function feltForSlide(s){
   if(s.type==='tdinterlude') return {label:'affect?', cls:''};
-  if(s.type==='transduction') return {label:'neural?', cls:''};
   if(s.type==='interlude') return {label:'self?', cls:''};
   if(s.type!=='rung') return null;
   const n=s.n;
@@ -435,7 +441,7 @@ function renderSlide(s){
       <div class="chips"><span class="era-chip">The open end</span></div>
       <h2 class="rung-title">Information, reuniting with itself</h2>
       <p class="lead">From maximum simplicity to minds that model the cosmos that made them — one unbroken climb, each rung paid in energy, each echoed in our machines. We are not its summit, only its current edge: a flea on the penny-farthing, the glitter on the wave. Deutsch's wager is that explanation, once begun, can grow without limit — <em>the beginning of infinity</em>; the transhumanist reading is that the climb now runs on through us, into minds we are building. Either way, the arrow that began at the Bang has not stopped. Perhaps, somewhere beyond us, information reunites with itself.</p>
-      <div class="sources">Further reading &middot; <b>Max Bennett, <em>A Brief History of Intelligence</em></b> — the spine of Eras III–V; <a href="https://www.abriefhistoryofintelligence.com/bibliography" target="_blank" rel="noopener">full online bibliography</a> &middot; Lloyd, <em>Programming the Universe</em> &middot; Dawkins, <em>The Selfish Gene</em> &middot; Lane, <em>The Vital Question</em> &middot; Deutsch, <em>The Beginning of Infinity</em> &middot; Adrian; McCulloch &amp; Pitts; Shannon &middot; Landauer &amp; C. Bennett &middot; Schultz / Sutton &amp; Barto &middot; Brian Christian, <em>The Alignment Problem</em> &middot; Anil Seth, <em>Being You</em> &middot; Libet; Soon et al.; Schurger &middot; Schmidhuber.</div>
+      <div class="sources">Further reading &middot; <b>Max Bennett, <em>A Brief History of Intelligence</em></b> — the spine of Eras III–V; <a href="https://www.abriefhistoryofintelligence.com/bibliography" target="_blank" rel="noopener">full online bibliography</a> &middot; Lloyd, <em>Programming the Universe</em> &middot; Dawkins, <em>The Selfish Gene</em> &middot; Lane, <em>The Vital Question</em> &middot; Deutsch, <em>The Beginning of Infinity</em> &middot; Shannon; Landauer &amp; C. Bennett &middot; Schultz / Sutton &amp; Barto &middot; Libet; Soon et al.; Schurger &middot; Schmidhuber.</div>
     </div>`;
   }
   if(s.type==='interlude'){
@@ -452,7 +458,7 @@ function renderSlide(s){
     </div>`;
   }
   if(s.type==='tdinterlude'){
-    return `<div class="wrap" style="--era:${ERAS.minds.color}">
+    return `<div class="wrap tdwrap" style="--era:${ERAS.minds.color}">
       <div class="chips"><span class="era-chip">Interlude</span><span class="rung-chip">After rung 14</span>${feltChip(s)}</div>
       <h2 class="rung-title">The actor and the critic</h2>
       <div class="rung-tag">When surprise becomes a teacher</div>
@@ -464,26 +470,19 @@ function renderSlide(s){
           <div class="tdarrow">→</div>
           <div class="tdnode"><div class="k">Error</div><div class="v">the next moment proves the prediction better or worse than expected</div></div>
         </div></div>
-        <div class="facet beat"><div class="txt">Minsky's problem was credit assignment: if reward comes only at the end, which earlier move deserved the credit? Sutton and Barto's answer was temporal-difference learning — learn from the change in expectation from one moment to the next.</div></div>
-        <div class="facet beat"><div class="txt">Tesauro's TD-Gammon showed how strong this could be: self-play plus TD learning discovered expert backgammon without being handed human strategy.</div></div>
-        <div class="facet beat"><div class="txt">Then the echo snapped shut. Schultz found dopamine firing for reward prediction error; Dayan and Read Montague connected that signal to TD learning. A reward that was expected teaches little; an unexpected reward teaches a lot; a missing reward teaches too.<div class="tdformula">prediction error = reward + next expectation - current expectation</div></div></div>
-        <div class="facet beat"><div class="txt">In the basal ganglia version, the critic learns what to expect, the actor learns what to do, and dopamine broadcasts the surprise that trains them both. The caveat matters: dopamine is not only this. But as a bridge between brains and reinforcement learning, it is one of the cleanest echoes in the whole climb.</div></div>
-      </div>
-    </div>`;
-  }
-  if(s.type==='transduction'){
-    return `<div class="wrap" style="--era:${ERAS.minds.color}">
-      <div class="chips"><span class="era-chip">Echo</span><span class="rung-chip">After rung 12</span>${feltChip(s)}</div>
-      <h2 class="rung-title">Clicks in the dark</h2>
-      <div class="rung-tag">No intelligence touches the world directly</div>
-      <div class="facets">
-        <div class="facet beat"><div class="tracegrid">
-          <div class="tracebox"><div class="k">Organism</div><div class="v">Light, pressure and chemicals become receptor changes, spikes, rates, timings and population patterns.</div></div>
-          <div class="tracebox machine"><div class="k">Model</div><div class="v">Sound becomes samples; images become pixels; text becomes tokens and vectors.</div></div>
+        <div class="facet beat"><div class="txt">Minsky's problem was credit assignment: if reward comes only at the end, which earlier move deserved the credit? Sutton and Barto's audacious answer was temporal-difference learning: learn from the change in expected future reward, so each moment can bootstrap the next.</div></div>
+        <div class="facet beat"><div class="txt">Tesauro's TD-Gammon made the magic concrete. Self-play plus TD learning climbed toward expert backgammon from experience alone, without being handed human strategy.</div></div>
+        <div class="facet beat"><div class="tdgraph" role="img" aria-label="Simplified dopamine traces showing reward prediction error">
+          <div class="tdgraph-head"><b>Schultz's trace</b><div class="tdgraph-key"><span class="tdkey"></span>positive error <span class="tdkey dip"></span>negative error</div></div>
+          <div class="tdpanels">
+            <div class="tdpanel"><svg viewBox="0 0 300 132" aria-hidden="true"><text class="tdpanel-title" x="20" y="18">1 Unexpected reward</text><line class="tdaxis" x1="20" y1="82" x2="280" y2="82"/><line class="tdmark" x1="220" y1="30" x2="220" y2="104"/><text class="tdlabel" x="196" y="120">reward</text><path class="tdtrace" d="M20 82 L196 82 C205 82 209 46 216 30 C223 46 227 82 238 82 L280 82"/></svg></div>
+            <div class="tdpanel"><svg viewBox="0 0 300 132" aria-hidden="true"><text class="tdpanel-title" x="20" y="18">2 Prediction learned</text><line class="tdaxis" x1="20" y1="82" x2="280" y2="82"/><line class="tdmark" x1="80" y1="30" x2="80" y2="104"/><line class="tdmark" x1="220" y1="30" x2="220" y2="104"/><text class="tdlabel" x="68" y="120">cue</text><text class="tdlabel" x="196" y="120">reward</text><path class="tdtrace" d="M20 82 L58 82 C66 82 70 46 77 30 C84 46 88 82 98 82 L280 82"/></svg></div>
+            <div class="tdpanel"><svg viewBox="0 0 300 132" aria-hidden="true"><text class="tdpanel-title" x="20" y="18">3 Reward omitted</text><line class="tdaxis" x1="20" y1="82" x2="280" y2="82"/><line class="tdmark" x1="80" y1="30" x2="80" y2="108"/><line class="tdmark" x1="220" y1="30" x2="220" y2="108"/><text class="tdlabel" x="68" y="120">cue</text><text class="tdlabel" x="179" y="120">no reward</text><path class="tdtrace" d="M20 82 L58 82 C66 82 70 46 77 30 C84 46 88 82 98 82 L152 82"/><path class="tdtrace dip" d="M152 82 L198 82 C206 82 210 108 217 118 C224 108 228 82 238 82 L280 82"/></svg></div>
+          </div>
+          <div class="tdcaption">The tiny downward notch is the revelation: if dopamine were just pleasure, nothing happening would be silence. Instead it goes <b>below baseline</b> exactly when the predicted reward fails to arrive.</div>
         </div></div>
-        <div class="facet beat"><div class="txt">The model never touches the medium. The organism never touches the world raw. Both live downstream of encoding.</div></div>
-        <div class="facet beat"><div class="txt">The caveat is the point: a machine's numbers are file formats and learned activations; a human's signals are embedded in a living body, action, hunger, danger and survival. The parallel is not "humans are just computers." It is that intelligence begins after translation.</div></div>
-        <div class="facet beat"><div class="txt">Perception is not the world pouring into the brain. It is the brain reaching outward with a model, corrected by sensory evidence — Anil Seth's controlled hallucination, kept honest by clicks in the dark.</div></div>
+        <div class="facet beat"><div class="txt">Dayan and Read Montague saw what that meant: the brain was carrying a signed prediction error, the same bookkeeping TD theory had asked for. Better than expected is a burst; worse than expected is a dip.<div class="tdformula">prediction error = reward + next expectation - current expectation</div></div></div>
+        <div class="facet beat"><div class="txt">In the basal ganglia version, the critic learns what to expect, the actor learns what to do, and dopamine broadcasts the surprise that trains them both. The caveat matters: dopamine is richer than this. But as a bridge between theory, games and living tissue, this is one of the cleanest echoes in the whole climb.</div></div>
       </div>
     </div>`;
   }
@@ -602,7 +601,6 @@ function railStateFor(idx){
   if(s.type==='era'){ const first={physics:1,life:5,minds:12,symbols:17,machines:20}[s.era]; return {activeRung:first, eraHi:s.era}; }
   if(s.type==='closing') return {activeRung:0, eraHi:'machines', beyond:true};
   if(s.type==='interlude') return {activeRung:16, eraHi:'minds'};
-  if(s.type==='transduction') return {activeRung:12, eraHi:'minds'};
   if(s.type==='tdinterlude') return {activeRung:14, eraHi:'minds'};
   if(s.type==='rightnow') return {activeRung:22, eraHi:'machines'};
   if(s.type==='twoclocks') return {activeRung:22, eraHi:'machines'};
@@ -615,7 +613,6 @@ function curEraColor(idx){
   if(s.type==='era') return ERAS[s.era].color;
   if(s.type==='closing') return ERAS.machines.color;
   if(s.type==='interlude') return ERAS.minds.color;
-  if(s.type==='transduction') return ERAS.minds.color;
   if(s.type==='tdinterlude') return ERAS.minds.color;
   if(s.type==='rightnow') return ERAS.machines.color;
   if(s.type==='twoclocks') return ERAS.machines.color;
