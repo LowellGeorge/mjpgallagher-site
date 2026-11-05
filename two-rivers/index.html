@@ -88,3 +88,16 @@ document.querySelectorAll('video').forEach(function(v){
   v.addEventListener('play', function(){ document.querySelectorAll('video').forEach(function(o){ if (o !== v && !o.paused) o.pause(); }); });
 });
 </script>
+<style>.fsb{display:inline-flex;align-items:center;gap:.35em;font:600 13px/1 system-ui,sans-serif;padding:.55em .9em;margin:-.3rem 0 .8rem;border:1px solid currentColor;border-radius:999px;background:transparent;color:inherit;opacity:.8;cursor:pointer}.fsb:hover{opacity:1}</style>
+<script>
+document.querySelectorAll('.vw').forEach(function(w){
+  var v = w.querySelector('video'); if (!v) return;
+  var b = document.createElement('button'); b.type = 'button'; b.className = 'fsb'; b.textContent = '\u2922 Full screen';
+  b.addEventListener('click', function(){
+    if (v.requestFullscreen) { v.requestFullscreen().then(function(){ v.play().catch(function(){}); }).catch(function(){ if (v.webkitEnterFullscreen) { v.webkitEnterFullscreen(); v.play().catch(function(){}); } }); }
+    else if (v.webkitRequestFullscreen) { v.webkitRequestFullscreen(); v.play().catch(function(){}); }
+    else if (v.webkitEnterFullscreen) { v.play().catch(function(){}); v.webkitEnterFullscreen(); }
+  });
+  w.insertAdjacentElement('afterend', b);
+});
+</script>
